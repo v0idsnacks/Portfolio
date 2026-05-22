@@ -16,10 +16,19 @@ export function HeroSection() {
   const nameRef = useRef(null)
   const bottomLeftRef = useRef(null)
   const bottomRightRef = useRef(null)
+  const bottomBarRef = useRef(null)
 
   useEffect(() => {
     const curtain = curtainRef.current
     if (!curtain) return
+
+    // Check if the primary input supports hover (prevents sticky/jumpy emulated hover on mobile taps)
+    const hasHover = window.matchMedia("(hover: hover)").matches
+    if (!hasHover) {
+      // Set to a beautiful 50/50 static split on touch devices
+      gsap.set(curtain, { width: "50%" })
+      return
+    }
 
     const handleMouseMove = (e) => {
       const pct = Math.max(0, Math.min(100, (e.clientX / window.innerWidth) * 100))
@@ -64,34 +73,29 @@ export function HeroSection() {
       // Scroll animations - parting hello (left) and name (right) with scaling
       if (helloRef.current) {
         gsap.to(helloRef.current, {
-          x: "-110vw", ease: "none",
-          scrollTrigger: { trigger: containerRef.current, start: "top top", end: "55% top", scrub: 1.2 },
-        })
-        gsap.to(helloRef.current, {
-          scale: 5, ease: "none",
-          scrollTrigger: { trigger: containerRef.current, start: "20% top", end: "70% top", scrub: 1.5 },
+          x: "-100vw",
+          scale: 2.2,
+          ease: "none",
+          scrollTrigger: { trigger: containerRef.current, start: "top top", end: "bottom top", scrub: 1 },
         })
       }
 
       if (nameRef.current) {
         gsap.to(nameRef.current, {
-          x: "110vw", ease: "none",
-          scrollTrigger: { trigger: containerRef.current, start: "top top", end: "55% top", scrub: 1.2 },
-        })
-        gsap.to(nameRef.current, {
-          scale: 4.5, ease: "none",
-          scrollTrigger: { trigger: containerRef.current, start: "20% top", end: "70% top", scrub: 1.5 },
+          x: "100vw",
+          scale: 2.0,
+          ease: "none",
+          scrollTrigger: { trigger: containerRef.current, start: "top top", end: "bottom top", scrub: 1 },
         })
       }
 
-      // Bottom bar elements fade & slide out on scroll
-      bottomEls.forEach((el) => {
-        if (!el) return
-        gsap.to(el, {
+      // Bottom bar container fades & slides out on scroll
+      if (bottomBarRef.current) {
+        gsap.to(bottomBarRef.current, {
           opacity: 0, y: -20, ease: "none",
           scrollTrigger: { trigger: containerRef.current, start: "5% top", end: "25% top", scrub: 1 },
         })
-      })
+      }
     })
 
     return () => ctx.revert()
@@ -114,7 +118,7 @@ export function HeroSection() {
   }
 
   return (
-    <div ref={containerRef} id="hero" style={{ height: "300vh", position: "relative" }}>
+    <div ref={containerRef} id="hero" style={{ height: "120vh", position: "relative" }}>
       <div
         ref={stickyRef}
         style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}
@@ -129,9 +133,10 @@ export function HeroSection() {
         {/* ═══════════ LAYER 2: DARK CURTAIN ═══════════ */}
         <div
           ref={curtainRef}
+          id="hero-curtain"
           style={{
             position: "absolute", top: 0, left: 0, bottom: 0,
-            width: "1vw", background: "#100f10", overflow: "hidden", zIndex: 2,
+            width: "1vw", background: "#000000", overflow: "hidden", zIndex: 2,
           }}
         />
 
@@ -154,7 +159,7 @@ export function HeroSection() {
             <h1 ref={nameRef} style={{ ...nameStyle, color: "#ffffff" }}>I&apos;m Aditya</h1>
           </div>
 
-          <div style={{
+          <div ref={bottomBarRef} style={{
             position: "absolute", bottom: "2.5rem",
             left: "clamp(1.5rem, 5vw, 5rem)", right: "clamp(1.5rem, 5vw, 5rem)",
             display: "flex", justifyContent: "space-between", alignItems: "flex-end",

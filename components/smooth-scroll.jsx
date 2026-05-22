@@ -30,6 +30,9 @@ export function SmoothScroll({ children }) {
     gsap.ticker.add(updateLenis)
     gsap.ticker.lagSmoothing(0)
 
+    // Calibrate all ScrollTrigger positions after Lenis initializes
+    ScrollTrigger.refresh()
+
     return () => {
       lenis.destroy()
       gsap.ticker.remove(updateLenis)

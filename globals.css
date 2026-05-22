@@ -131,10 +131,11 @@ html.light-mode {
 ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #555; }
 
-/* ─── Mobile: disable custom cursor ─── */
+/* ─── Mobile: disable custom cursor & fix hero curtain ─── */
 @media (pointer: coarse) {
   body, a, button, input, textarea { cursor: auto; }
   .cursor-big-circle,
   .cursor-small-circle,
   .cursor-arrow { display: none; }
+  #hero-curtain { width: 50% !important; }
 }
