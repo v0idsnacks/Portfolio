@@ -4,9 +4,9 @@ import { useState, useEffect } from "react"
 
 const navLinks = [
   { label: "About", href: "#bio" },
-  { label: "Resume", href: "#skills" },
   { label: "Projects", href: "#work" },
-  { label: "Github", href: "https://github.com/TechTitan360", external: true },
+  { label: "Resume", href: "#skills" },
+  { label: "Github", href: "https://github.com/v0idsnacks", external: true },
 ]
 
 export function Navbar() {

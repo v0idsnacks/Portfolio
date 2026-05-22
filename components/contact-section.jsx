@@ -103,14 +103,24 @@ export function ContactSection() {
           gap: "1.5rem",
         }}
       >
-        <span style={{ fontSize: "1.4rem", fontWeight: 800, letterSpacing: "-0.03em", color: "var(--foreground)" }}>
-          Aditya.
-        </span>
+        <a
+          href="#hero"
+          data-hoverable
+          style={{
+            fontSize: "1.4rem",
+            fontWeight: 800,
+            letterSpacing: "-0.03em",
+            color: "var(--foreground)",
+            textDecoration: "none",
+          }}
+        >
+          {"Aditya Bhardwaj </>" }
+        </a>
 
         <div style={{ display: "flex", gap: "2rem" }}>
           {[
             { label: "LinkedIn", href: "https://www.linkedin.com/in/adityabhardwaj1910/" },
-            { label: "GitHub", href: "https://github.com/TechTitan360" },
+            { label: "GitHub", href: "https://github.com/v0idsnacks" },
             { label: "Email", href: "mailto:adityabhardwaj3369@gmail.com" },
           ].map(({ label, href }) => (
             <a
