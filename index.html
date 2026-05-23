@@ -11,6 +11,41 @@
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
     
+    <!-- Dynamic SEO Canonical & Schema Markup (Tells Googlebot exactly who you are on any domain) -->
+    <script>
+      (function() {
+        const canonicalUrl = window.location.protocol + '//' + window.location.hostname + '/';
+        
+        // 1. Inject Canonical Tag (Prevents Vercel vs Custom Domain duplicate penalties)
+        const link = document.createElement('link');
+        link.rel = 'canonical';
+        link.href = canonicalUrl;
+        document.head.appendChild(link);
+
+        // 2. Inject JSON-LD Schema (Ties your name, socials, and Galgotias to your URL)
+        const schema = {
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Aditya Bhardwaj",
+          "jobTitle": "Full Stack Developer",
+          "alumniOf": {
+            "@type": "EducationalOrganization",
+            "name": "Galgotias University"
+          },
+          "url": canonicalUrl,
+          "sameAs": [
+            "https://github.com/v0idsnacks",
+            "https://www.linkedin.com/in/adityabhardwaj1910/",
+            "https://leetcode.com/u/v0idsnacks/"
+          ]
+        };
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.text = JSON.stringify(schema);
+        document.head.appendChild(script);
+      })();
+    </script>
+    
     <!-- Google Fonts: Manrope -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
